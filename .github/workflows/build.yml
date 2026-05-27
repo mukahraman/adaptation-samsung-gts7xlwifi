@@ -1,7 +1,11 @@
 name: Build CI
 
-on:  
-  [push, pull_request]
+on:
+  push:
+    branches: [ "trixie" ]
+  pull_request:
+    branches: [ "trixie" ]
+  workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
