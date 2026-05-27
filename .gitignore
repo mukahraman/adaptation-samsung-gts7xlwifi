@@ -1,2 +1,22 @@
-# Ignore all debian/ build files (except those that are forcefully checked in)
-debian/
+# Debian build artefacts (generated during dpkg-buildpackage).
+# Don't blanket-ignore debian/ itself — we ship debian/control,
+# debian/changelog, debian/copyright, debian/rules, etc. as source.
+debian/.debhelper/
+debian/files
+debian/*-stamp
+debian/*.debhelper.log
+debian/*.substvars
+debian/tmp/
+debian/adaptation-samsung-gts7xlwifi/
+debian/adaptation-samsung-gts7xlwifi-configs/
+
+# Build outputs
+*.deb
+*.buildinfo
+*.changes
+*.dsc
+
+# Editor scratch
+*~
+.*.swp
+.*.swo

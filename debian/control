@@ -1,22 +1,28 @@
-Source: adaptation-sony-pdx206
-Maintainer: Archie Meng <archiemeng@protonmail.com>
+Source: adaptation-samsung-gts7xlwifi
+Maintainer: Mustafa Kahraman <mkahraman341@gmail.com>
 Section: metapackages
 Priority: optional
 Build-Depends: debhelper (>= 10)
 Standards-Version: 4.5.0.3
-Vcs-Browser: https://github.com/ArchieMeng/adaptation-sony-pdx206
-Vcs-Git: https://github.com/ArchieMeng/adaptation-sony-pdx206.git
+Vcs-Browser: https://github.com/mukahraman/adaptation-samsung-gts7xlwifi
+Vcs-Git: https://github.com/mukahraman/adaptation-samsung-gts7xlwifi.git
 
-Package: adaptation-sony-pdx206
+Package: adaptation-samsung-gts7xlwifi
 Architecture: all
 Depends: ${misc:Depends},
-         linux-bootimage-sony-pdx206,
+         linux-bootimage-samsung-gts7xlwifi,
          adaptation-hybris-api30-phone,
-         adaptation-sony-pdx206-configs,
-Description: adapatation-sony-pdx206 - meta
- Sony Xperia 5 II api30 adaptation metapackage
+         adaptation-samsung-gts7xlwifi-configs,
+Description: adaptation-samsung-gts7xlwifi - meta
+ Samsung Galaxy Tab S7+ Wi-Fi (SM-T970, codename gts7xlwifi) api30
+ adaptation metapackage. Depends on the kernel bootimage, the Halium
+ hybris API-30 phone runtime, and this device's adaptation configs.
 
-Package: adaptation-sony-pdx206-configs
+Package: adaptation-samsung-gts7xlwifi-configs
 Architecture: all
 Depends: ${misc:Depends},
-Description: Sony Xperia 5 II's specific adaptation configs
+Description: Samsung Galaxy Tab S7+ Wi-Fi (gts7xlwifi)'s specific adaptation configs
+ Device-specific configuration files (udev rules, phosh compositor settings,
+ device flag files, hwcomposer/audio glue) for the Samsung Galaxy Tab S7+
+ Wi-Fi (gts7xlwifi) running Droidian on top of a Halium-12 / Android-11
+ vendor partition.

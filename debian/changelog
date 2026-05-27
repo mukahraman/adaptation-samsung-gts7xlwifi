@@ -1,6 +1,15 @@
-adaptation-sony-pdx206 (0.0.1+git20250727064840.c479d68.trixie) trixie; urgency=medium
+adaptation-samsung-gts7xlwifi (0.0.1+git20260527125500.0000000.trixie) trixie; urgency=medium
 
-  * keyrings: Update public key
+  * Initial adaptation package for Samsung Galaxy Tab S7+ Wi-Fi (SM-T970,
+    codename gts7xlwifi), forked from ArchieMeng's adaptation-sony-pdx206.
+  * Rename all sony-pdx206 paths and identifiers to samsung-gts7xlwifi.
+  * Rename udev rules file 70-pdx206.rules -> 70-gts7xlwifi.rules (contents
+    are generic Halium/Qualcomm sm8250 permissions; no device-specific
+    binding required at this stage).
+  * Tune etc/phosh/phoc.ini for the 12.4" 2800x1752 tablet panel.
+  * Remove ArchieMeng's apt-repo GPG keyring (will be replaced by a
+    mukahraman-signed key once our own apt repo is wired up).
+  * Stop blanket-ignoring debian/ in .gitignore so future package files
+    don't silently disappear.
 
- -- ArchieMeng <archiemeng@protonmail.com>  Sun, 27 Jul 2025 14:48:40 +0800
-
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Wed, 27 May 2026 12:55:00 +0000
