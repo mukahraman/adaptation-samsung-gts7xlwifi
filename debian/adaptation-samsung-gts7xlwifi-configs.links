@@ -1,1 +1,7 @@
 /usr/lib/adaptation-samsung-gts7xlwifi/droid-get-bt-address.sh /usr/bin/droid/droid-get-bt-address.sh
+/dev/null /etc/systemd/system/suspend.target
+/dev/null /etc/systemd/system/sleep.target
+/dev/null /etc/systemd/system/hibernate.target
+/dev/null /etc/systemd/system/hybrid-sleep.target
+/dev/null /etc/systemd/system/suspend-then-hibernate.target
+/dev/null /etc/systemd/system/iio-sensor-proxy.service

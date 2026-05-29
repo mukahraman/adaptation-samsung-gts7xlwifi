@@ -1,0 +1,5 @@
+# gts7xlwifi: rotate the touchscreen to match the locked-landscape phosh output.
+# Matrix "0 1 0 -1 0 1" maps panel (portrait-native) -> landscape. This is correct
+# ONLY while auto-rotate is disabled (iio-sensor-proxy.service masked); if auto-rotate
+# is ever re-enabled, drop this fixed matrix and rely on output-transform composition.
+ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="sec_touchscreen", ENV{LIBINPUT_CALIBRATION_MATRIX}="0 1 0 -1 0 1"

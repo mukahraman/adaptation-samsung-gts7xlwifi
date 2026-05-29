@@ -1,3 +1,17 @@
+adaptation-samsung-gts7xlwifi (0.0.3+git20260529225627.0000000.trixie) trixie; urgency=medium
+
+  * Display/input/power fixes (fold in manual bring-up tweaks):
+    - etc/udev/rules.d/98-touch-calib.rules: set LIBINPUT_CALIBRATION_MATRIX
+      "0 1 0 -1 0 1" on sec_touchscreen so touch matches the locked-landscape
+      phosh output.
+    - Mask iio-sensor-proxy.service: keep the display in landscape so the fixed
+      touch matrix above stays correct (no auto-rotate flipping it).
+    - Mask suspend.target / sleep.target / hibernate.target / hybrid-sleep.target
+      / suspend-then-hibernate.target: idle-suspend cannot resume on this device
+      and leaves it black/frozen, so block sleep entirely until resume works.
+
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Fri, 29 May 2026 22:56:27 +0000
+
 adaptation-samsung-gts7xlwifi (0.0.2+git20260529223443.0000000.trixie) trixie; urgency=medium
 
   * Audio: bake in the working speaker bring-up for gts7xlwifi.
