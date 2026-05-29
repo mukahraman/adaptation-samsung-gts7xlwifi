@@ -1,0 +1,6 @@
+service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
+    class hal
+    user root
+    group audio media mediadrm inet net_bt net_bt_admin
+    capabilities BLOCK_SUSPEND
+    override

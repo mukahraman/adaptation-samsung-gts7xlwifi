@@ -1,3 +1,25 @@
+adaptation-samsung-gts7xlwifi (0.0.2+git20260529223443.0000000.trixie) trixie; urgency=medium
+
+  * Audio: bake in the working speaker bring-up for gts7xlwifi.
+    - etc/pulse/arm_droid_card_custom.pa: load module-droid-card with
+      use_legacy_stream_set_parameters=true. This avoids the create_audio_patch
+      null-function-pointer path in the Halium audio.hidl_compat wrapper, which
+      otherwise hard-wedges userspace when the droid card initialises.
+    - usr/lib/droid-vendor-overlay/etc/init/android.hardware.audio.service.rc:
+      re-enable the vendor.audio-hal HIDL service (the android image ships it
+      disabled via init.disabled.rc); run it as root with the audio HAL groups
+      and BLOCK_SUSPEND capability. The /vendor overlay 'override' keyword
+      replaces the disabled definition.
+    - usr/lib/droid-vendor-overlay/lib64/hw/audio.primary.kona.so: the 64-bit
+      Halium audio.hidl_compat wrapper, installed under the audio.primary.<hw>
+      name so the 64-bit pulseaudio module-droid-card loads it and bridges over
+      hwbinder to the 32-bit kona audio HAL (solves the 64-bit-userspace /
+      32-bit-only-HAL wall).
+  * Verified on-device: pulseaudio creates droid_card.primary + sink.primary-out;
+    a test tone is audible on the CS35L41 speakers.
+
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Fri, 29 May 2026 22:34:43 +0000
+
 adaptation-samsung-gts7xlwifi (0.0.1+git20260527125500.0000000.trixie) trixie; urgency=medium
 
   * Initial adaptation package for Samsung Galaxy Tab S7+ Wi-Fi (SM-T970,
