@@ -1,3 +1,21 @@
+adaptation-samsung-gts7xlwifi (0.0.4+git20260529234841.0000000.trixie) trixie; urgency=medium
+
+  * Auto-rotate: enable working automatic screen rotation (display + touch).
+    - debian/postinst: set sensorfw accelerometer transformation_matrix to
+      "0,-1,0,1,0,0,0,0,1" in /etc/sensorfw/sensord-hybris.conf so the reported
+      orientation matches the physical device in all four orientations (the raw
+      hybris accel axes were swapped + one inverted relative to the panel).
+    - Enable sensorfwd.service (provides the accelerometer data; iio-sensor-proxy
+      is D-Bus-activated on top of it).
+    - Stop masking iio-sensor-proxy.service (revert the A3 landscape-lock from
+      0.0.3) so phosh receives orientation events and rotates.
+    The landscape touch calibration matrix (98-touch-calib.rules) is kept: it is
+    the base digitizer<->panel alignment, and the compositor rotates touch on top
+    of it, so touch follows the display correctly in every orientation.
+  * Verified on-device: display + touch both rotate correctly in all orientations.
+
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Fri, 29 May 2026 23:48:41 +0000
+
 adaptation-samsung-gts7xlwifi (0.0.3+git20260529225627.0000000.trixie) trixie; urgency=medium
 
   * Display/input/power fixes (fold in manual bring-up tweaks):

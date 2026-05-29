@@ -1,0 +1,36 @@
+#!/bin/sh
+# Auto-rotate enablement for gts7xlwifi.
+#  - sensorfw's active config is /etc/sensorfw/primaryuse.conf -> sensord-hybris.conf
+#    (forced for hybris devices). Set the accelerometer coordinate transform so the
+#    reported orientation matches the physical device (display rotates the right way).
+#    Done idempotently here because sensord-hybris.conf is a conffile of another
+#    package (libsensorfw-qt6-configs); we don't ship/clobber it.
+#  - enable sensorfwd (provides the accel data). iio-sensor-proxy (sensorfw-backed,
+#    net.hadess.SensorProxy) is D-Bus-activated and just needs to NOT be masked
+#    (we no longer ship the mask).
+set -e
+
+ACCEL_MATRIX="0,-1,0,1,0,0,0,0,1"
+
+case "$1" in
+    configure)
+        F=/etc/sensorfw/sensord-hybris.conf
+        if [ -f "$F" ] && ! grep -q "transformation_matrix = \"$ACCEL_MATRIX\"" "$F"; then
+            tmp="$(mktemp)"
+            awk -v m="$ACCEL_MATRIX" '
+                /^\[/ { ina = 0 }
+                /^\[accelerometer\]/ { ina = 1 }
+                ina && /transformation_matrix/ { sub(/"[^"]*"/, "\"" m "\"") }
+                { print }
+            ' "$F" > "$tmp" && cat "$tmp" > "$F"
+            rm -f "$tmp"
+        fi
+        if [ -d /run/systemd/system ]; then
+            systemctl enable sensorfwd.service >/dev/null 2>&1 || true
+        fi
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

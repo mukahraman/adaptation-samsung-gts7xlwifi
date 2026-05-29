@@ -4,4 +4,3 @@
 /dev/null /etc/systemd/system/hibernate.target
 /dev/null /etc/systemd/system/hybrid-sleep.target
 /dev/null /etc/systemd/system/suspend-then-hibernate.target
-/dev/null /etc/systemd/system/iio-sensor-proxy.service
