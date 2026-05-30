@@ -1,0 +1,13 @@
+# Tab S7+ (gts7xlwifi) libinput device quirks.
+#
+# S-Pen (Wacom W9021, "sec_e-pen"): the Samsung Android digitizer driver leaves the ABS
+# X/Y axis resolution unset (0). libinput requires a resolution for tablet tools, so it
+# rejected the pen entirely ("missing tablet capabilities: resolution. Ignoring this
+# device.") and no stylus input reached the compositor. The digitizer is 26712x16714 over
+# the ~267x167mm 12.4" panel -> ~100 units/mm. Provide it so libinput treats the S-Pen as a
+# tablet tool. (Orientation is handled separately by /etc/udev/rules.d/99-epen-calib.rules.)
+# NOTE: the attribute is AttrResolutionHint -- NOT AttrSize, which is invalid and makes
+# libinput drop ALL quirks.
+[Samsung gts7xlwifi S-Pen]
+MatchName=sec_e-pen
+AttrResolutionHint=100x100

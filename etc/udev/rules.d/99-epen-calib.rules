@@ -1,0 +1,6 @@
+# Tab S7+ (gts7xlwifi): the sec_e-pen Wacom digitizer reports in the panel's native
+# (portrait) orientation, so its coordinates are rotated 90 deg vs the landscape display --
+# exactly like sec_touchscreen (see 98-touch-calib.rules). Apply the same libinput
+# calibration matrix so the pen lands under its tip. (Resolution -- which libinput requires
+# for tablets -- is supplied via /etc/libinput/local-overrides.quirks.)
+ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="sec_e-pen", ENV{LIBINPUT_CALIBRATION_MATRIX}="0 1 0 -1 0 1"

@@ -1,3 +1,16 @@
+adaptation-samsung-gts7xlwifi (0.0.7+git20260530183000.0000000.trixie) trixie; urgency=medium
+
+  * S-Pen: make the Wacom digitizer (sec_e-pen / W9021) work as a stylus. libinput was
+    ignoring it ("missing tablet capabilities: resolution") because the Samsung Android
+    driver leaves ABS axis resolution unset. Ship etc/libinput/local-overrides.quirks with
+    AttrResolutionHint=100x100 (26712x16714 over the ~267x167mm panel) so libinput treats it
+    as a tablet, plus etc/udev/rules.d/99-epen-calib.rules applying the same 90-deg
+    LIBINPUT_CALIBRATION_MATRIX as the touchscreen (the pen reports in panel-native portrait
+    orientation). Confirmed: pen draws with pressure in Xournal++ (the native apt build --
+    the Flatpak's bundled Mesa can't drive the Adreno GPU, so install graphical apps via apt).
+
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Sat, 30 May 2026 18:30:00 +0000
+
 adaptation-samsung-gts7xlwifi (0.0.6+git20260530164500.0000000.trixie) trixie; urgency=medium
 
   * Wi-Fi: make route-install reliable across boots (systemd service + shared helper).
