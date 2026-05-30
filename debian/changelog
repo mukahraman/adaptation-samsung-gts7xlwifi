@@ -1,3 +1,20 @@
+adaptation-samsung-gts7xlwifi (0.0.6+git20260530164500.0000000.trixie) trixie; urgency=medium
+
+  * Wi-Fi: make route-install reliable across boots (systemd service + shared helper).
+    The NM dispatcher alone didn't reliably fire at boot. Add wlan-routes.service
+    (oneshot, After=NetworkManager) running /usr/lib/adaptation-samsung-gts7xlwifi/
+    wlan-routes-fix: a self-contained ~90s-retry helper that reads the address off the
+    live Wi-Fi interface (the name varies swlan0/wlp1s0/wlanN across boots) and installs
+    the network + default routes, which NM leaves unset (empty IP4.GATEWAY +
+    noprefixroute). The 50-wlan-routes dispatcher now calls the same helper on
+    up/dhcp4-change for mid-session reconnects. Service enabled via debian/links.
+  * Firefox: force H.264 + cap fps for usable YouTube. Add usr/lib/firefox/defaults/
+    pref/zz-halium-video-gts7xlwifi.js: disable AV1/VP9/WebM (no GPU/VAAPI video decode
+    on this Halium device, so VP9/AV1 software-decode lagged; H.264 is ~4-6x cheaper)
+    and set layout.frame_rate=60 to ease fullscreen compositing on the 120Hz panel.
+
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Sat, 30 May 2026 16:45:00 +0000
+
 adaptation-samsung-gts7xlwifi (0.0.5+git20260530075616.0000000.trixie) trixie; urgency=medium
 
   * Wi-Fi: add NetworkManager dispatcher script to install routes on connect.

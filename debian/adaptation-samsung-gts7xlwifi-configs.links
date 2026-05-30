@@ -1,4 +1,5 @@
 /usr/lib/adaptation-samsung-gts7xlwifi/droid-get-bt-address.sh /usr/bin/droid/droid-get-bt-address.sh
+/usr/lib/systemd/system/wlan-routes.service /etc/systemd/system/multi-user.target.wants/wlan-routes.service
 /dev/null /etc/systemd/system/suspend.target
 /dev/null /etc/systemd/system/sleep.target
 /dev/null /etc/systemd/system/hibernate.target

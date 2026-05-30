@@ -1,0 +1,11 @@
+[Unit]
+Description=Install Wi-Fi routes (workaround NM not installing DHCP routes on gts7xlwifi)
+After=NetworkManager.service
+Wants=NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/adaptation-samsung-gts7xlwifi/wlan-routes-fix
+
+[Install]
+WantedBy=multi-user.target

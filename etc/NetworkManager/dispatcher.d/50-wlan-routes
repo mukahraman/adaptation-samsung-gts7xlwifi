@@ -1,27 +1,14 @@
 #!/bin/sh
-# Workaround: on gts7xlwifi, NetworkManager gets the DHCP lease but does not install
-# the connected route or the DHCP-provided default route (IP4.GATEWAY ends up empty
-# despite DHCP option 'routers'). Install them ourselves on each connect, from the
-# env NM exports. Non-disruptive (no interface toggle).
+# gts7xlwifi: NetworkManager gets the DHCP lease but often installs no connected/default
+# route -> "connected but no internet". On each Wi-Fi up/dhcp4-change, (re)install the
+# routes via the shared helper (same logic the boot-time wlan-routes.service uses).
+# The Wi-Fi interface enumerates as wlp1s0 / swlan0 / wlanN across boots, so match all.
 IFACE="$1"; ACTION="$2"
-[ "$IFACE" = wlp1s0 ] || exit 0
+case "$IFACE" in
+    wlp1s0|swlan0|wlan[0-9]*) ;;
+    *) exit 0 ;;
+esac
 case "$ACTION" in
-    up|dhcp4-change)
-        n=0
-        while :; do
-            eval "a=\"\$IP4_ADDRESS_$n\""
-            [ -n "$a" ] || break
-            # a = "192.168.1.82/24 192.168.1.1"  (addr/plen [gateway])
-            set -- $a
-            cidr="$1"; gw="$2"
-            # connected route: ip masks host bits, so cidr -> network/plen route
-            [ -n "$cidr" ] && ip route replace "$cidr" dev "$IFACE" src "${cidr%/*}" 2>/dev/null
-            [ -z "$gw" ] && gw="$DHCP4_ROUTERS"
-            if [ -n "$gw" ] && [ "$gw" != 0.0.0.0 ]; then
-                ip route replace default via "$gw" dev "$IFACE" 2>/dev/null
-            fi
-            n=$((n + 1))
-        done
-        ;;
+    up|dhcp4-change) /usr/lib/adaptation-samsung-gts7xlwifi/wlan-routes-fix ;;
 esac
 exit 0
