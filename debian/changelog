@@ -1,3 +1,15 @@
+adaptation-samsung-gts7xlwifi (0.0.5+git20260530075616.0000000.trixie) trixie; urgency=medium
+
+  * Wi-Fi: add NetworkManager dispatcher script to install routes on connect.
+    On this device NM gets the DHCP lease (IP + DNS + 'routers' option) but fails
+    to install the connected route or the default route (IP4.GATEWAY ends up
+    empty) -> "connected but no internet". etc/NetworkManager/dispatcher.d/
+    50-wlan-routes reinstalls them from the NM-exported env on each wlp1s0 up /
+    dhcp4-change. Non-disruptive (does not toggle the interface — toggling WLAN
+    via nmcli down/up wedges the cnss driver on this device).
+
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Sat, 30 May 2026 07:56:16 +0000
+
 adaptation-samsung-gts7xlwifi (0.0.4+git20260529234841.0000000.trixie) trixie; urgency=medium
 
   * Auto-rotate: enable working automatic screen rotation (display + touch).
