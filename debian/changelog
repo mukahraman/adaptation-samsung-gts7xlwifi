@@ -1,3 +1,14 @@
+adaptation-samsung-gts7xlwifi (0.0.8+git20260530192000.0000000.trixie) trixie; urgency=medium
+
+  * Display: fix newly-launched apps not appearing until a screen lock/unlock. phoc on the
+    hwcomposer backend (command-mode DSI panel) direct-scans-out a fullscreen surface and does
+    not recomposite when a new window maps on top, leaving the screen stale until a forced
+    repaint. Ship etc/environment.d/65-phoc-no-direct-scanout.conf setting
+    WLR_SCENE_DISABLE_DIRECT_SCANOUT=1 so phoc always composites and new windows render
+    immediately. Confirmed: apps now pop up right away.
+
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Sat, 30 May 2026 19:20:00 +0000
+
 adaptation-samsung-gts7xlwifi (0.0.7+git20260530183000.0000000.trixie) trixie; urgency=medium
 
   * S-Pen: make the Wacom digitizer (sec_e-pen / W9021) work as a stylus. libinput was
