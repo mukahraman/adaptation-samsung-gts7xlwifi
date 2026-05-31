@@ -1,3 +1,15 @@
+adaptation-samsung-gts7xlwifi (0.0.10) trixie; urgency=medium
+
+  * Bluetooth: pin adapter Class of Device to Computer/Laptop (0x00010c) via
+    etc/bluetooth/main.conf. Stock left the CoD as "Miscellaneous", so peer
+    devices (phones) saw the tablet as an audio sink (music-note/headphone icon)
+    and would not offer file transfer. The BT stack itself (adapter, pairing,
+    A2DP audio) is fixed in the kernel (hci_sock.c un-gut + rfcomm/bnep/hidp
+    Makefile subdirs) and needs no adaptation change. OBEX file-receive
+    (bluez-obexd + an auto-accept session agent) remains a documented follow-up.
+
+ -- Mustafa Kahraman <mkahraman341@gmail.com>  Mon, 01 Jun 2026 00:06:50 +0300
+
 adaptation-samsung-gts7xlwifi (0.0.9+git20260531152506.0000000.trixie) trixie; urgency=medium
 
   * Camera: fix the 90-degree clockwise preview rotation (both front + back).
